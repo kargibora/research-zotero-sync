@@ -30,7 +30,7 @@ This extension is not yet on the Chrome Web Store. To install from source:
 
 1. Clone this repository
    ```bash
-   git clone https://github.com/<your-username>/research-zotero-sync.git
+   git clone https://github.com/kargibora/research-zotero-sync.git
    cd research-zotero-sync
    ```
 2. Install dev dependencies (only needed if you want to run tests)
