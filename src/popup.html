@@ -5,24 +5,49 @@
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h1>Research → Zotero</h1>
+    <header class="app-header">
+      <div class="app-icon">⇆</div>
+      <div class="app-titles">
+        <div class="app-title">Research → Zotero</div>
+        <div class="app-sub">Sync your reading lists</div>
+      </div>
+      <a href="#" id="openOptions" class="header-link" title="Options">⚙</a>
+    </header>
 
-    <section>
-      <h2>Bulk sync</h2>
-      <button id="syncAlphaxiv">Sync AlphaXiv</button>
-      <p id="alphaxivStatus" class="status"></p>
-      <button id="syncScholarInbox">Sync Scholar-Inbox</button>
-      <p id="scholarInboxStatus" class="status"></p>
-      <button id="syncAll">Sync all</button>
-    </section>
+    <main>
+      <section class="card" data-source="alphaxiv" data-state="idle">
+        <div class="card-head">
+          <div class="card-icon alphaxiv">α</div>
+          <div class="card-titles">
+            <div class="card-title">AlphaXiv</div>
+            <div class="card-sub" id="alphaxivStatus">never synced</div>
+          </div>
+          <span class="pill idle" id="alphaxivPill">idle</span>
+        </div>
+        <button class="btn outline" id="syncAlphaxiv"><span class="btn-label">Sync</span></button>
+      </section>
 
-    <section>
-      <h2>Current page</h2>
-      <button id="syncCurrentPage">Sync current page</button>
-    </section>
+      <section class="card" data-source="scholar-inbox" data-state="idle">
+        <div class="card-head">
+          <div class="card-icon scholar-inbox">SI</div>
+          <div class="card-titles">
+            <div class="card-title">Scholar-Inbox</div>
+            <div class="card-sub" id="scholarInboxStatus">never synced</div>
+          </div>
+          <span class="pill idle" id="scholarInboxPill">idle</span>
+        </div>
+        <button class="btn outline" id="syncScholarInbox"><span class="btn-label">Sync</span></button>
+      </section>
 
-    <p id="result" class="result"></p>
-    <p><a href="#" id="openOptions">Options</a></p>
+      <button class="btn full-width primary-strong" id="syncAll">Sync all sources</button>
+
+      <section class="page-section">
+        <div class="section-title">Current page</div>
+        <button class="btn outline" id="syncCurrentPage">Sync current page</button>
+      </section>
+
+      <div id="result" class="result hidden"></div>
+    </main>
 
     <script type="module" src="popup.js"></script>
   </body>
