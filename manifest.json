@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Research Notes → Zotero Sync",
+  "version": "0.2.0",
+  "description": "Bulk-sync AlphaXiv folders and Scholar-Inbox collections (and AlphaXiv personal notes) into Zotero, with per-page sync as a fallback.",
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "host_permissions": [
+    "https://api.zotero.org/*",
+    "https://api.alphaxiv.org/*",
+    "https://api.scholar-inbox.com/*",
+    "https://*.alphaxiv.org/*",
+    "https://alphaxiv.org/*",
+    "https://*.scholar-inbox.com/*",
+    "https://scholar-inbox.com/*",
+    "https://arxiv.org/*",
+    "https://export.arxiv.org/*"
+  ],
+  "background": { "service_worker": "src/background.js", "type": "module" },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.alphaxiv.org/*",
+        "https://alphaxiv.org/*",
+        "https://*.scholar-inbox.com/*",
+        "https://scholar-inbox.com/*"
+      ],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": { "default_popup": "src/popup.html" },
+  "options_page": "src/options.html"
+}
