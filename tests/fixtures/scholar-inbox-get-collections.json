@@ -1,0 +1,35 @@
+{
+  "success": true,
+  "collections": [
+    {
+      "id": 167704,
+      "name": "LLM-as-a-Judge",
+      "isSelected": true,
+      "permission": "owner",
+      "color": "#f691b2",
+      "isPublic": false,
+      "papers": [
+        {
+          "paper_id": 475412,
+          "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+          "authors": "Lianmin Zheng, Wei-Lin Chiang, Ying Sheng",
+          "cache_file_name": "Zheng2023NeurIPS_Judging_LLM_as_a.pdf",
+          "publication_date": "2024-02-15",
+          "arxiv_id": "2306.05685",
+          "read": true,
+          "abstract": "Evaluating LLM chat assistants is hard..."
+        },
+        {
+          "paper_id": 600001,
+          "title": "Paper Without ArXiv ID",
+          "authors": "Single Author",
+          "cache_file_name": "NoArxiv2026_Paper_Without.pdf",
+          "publication_date": "2026-01-01",
+          "arxiv_id": "",
+          "read": false,
+          "abstract": "..."
+        }
+      ]
+    }
+  ]
+}
