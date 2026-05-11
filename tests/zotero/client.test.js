@@ -17,8 +17,7 @@ describe('createZoteroClient', () => {
     expect(url).toBe('https://api.zotero.org/users/1/items?limit=1');
     expect(init.headers.get('Zotero-API-Key')).toBe('KEY123');
     expect(init.headers.get('Zotero-API-Version')).toBe('3');
-    expect(result.data).toEqual({ hello: 'world' });
-    expect(result.libraryVersion).toBe('42');
+    expect(result).toEqual({ hello: 'world' });
   });
 
   it('throws on non-ok responses with the API error body', async () => {

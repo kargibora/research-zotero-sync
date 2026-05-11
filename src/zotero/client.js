@@ -21,8 +21,7 @@ export function createZoteroClient({ apiKey, fetch }) {
       const detail = typeof data === 'string' ? data : JSON.stringify(data);
       throw new Error(`Zotero API ${res.status}: ${detail}`);
     }
-    const lastModified = res.headers.get('Last-Modified-Version');
-    return lastModified ? { data, libraryVersion: lastModified } : data;
+    return data;
   }
 
   return { fetchJson };
