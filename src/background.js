@@ -50,6 +50,10 @@ function makeAdapter(source) {
 
 async function syncSource(source) {
   const settings = await getSettings();
+  const enabledFlag = source === 'alphaxiv' ? 'enableAlphaxiv' : source === 'scholar-inbox' ? 'enableScholarInbox' : null;
+  if (enabledFlag && settings[enabledFlag] === false) {
+    return { ok: true, source, papersWritten: 0, collectionsTouched: [], skipped: true };
+  }
   const { client, userPrefix } = await getClientAndPrefix(settings);
   const state = createSyncState({ storage: chrome.storage.local });
   const adapter = makeAdapter(source);
