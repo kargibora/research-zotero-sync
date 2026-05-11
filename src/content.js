@@ -40,6 +40,10 @@ function extractPageData() {
     return normalizeExport({ ...exported, source, url: location.href });
   }
 
+  if (source === 'scholar-inbox' && location.pathname.startsWith('/paper/')) {
+    return normalizeExport(extractScholarInboxPaper());
+  }
+
   return normalizeExport({
     source,
     url: location.href,
@@ -54,6 +58,24 @@ function extractPageData() {
     pdfUrl: getMeta('citation_pdf_url') || detectPdfUrl(),
     comments: extractVisibleNotesAndComments(source)
   });
+}
+
+function extractScholarInboxPaper() {
+  const titleRaw = document.title || '';
+  const title = titleRaw.replace(/\s*[-–]\s*Scholar Inbox\s*$/i, '').trim();
+  const arxivLink = document.querySelector('a[href*="arxiv.org/abs/"]')?.href || '';
+  const arxiv = detectArxivIdFromText(arxivLink) || detectArxivIdFromText(document.body.innerText.slice(0, 5000));
+  return {
+    source: 'scholar-inbox',
+    url: location.href,
+    title,
+    authors: [],
+    abstract: '',
+    date: '',
+    identifiers: { arxiv, doi: '' },
+    pdfUrl: arxiv ? `https://arxiv.org/pdf/${arxiv}` : '',
+    comments: []
+  };
 }
 
 function normalizeExport(data) {
