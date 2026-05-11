@@ -1,0 +1,223 @@
+[
+  {
+    "id": "019d6c04-7efb-7e02-a307-5ba29a398d32",
+    "name": "LLM-as-a-Judge Soft-ELO",
+    "type": "custom",
+    "order": 5,
+    "parentId": null,
+    "sharingStatus": "not_shared",
+    "papers": [
+      {
+        "paperGroupId": "019633b5-b6c8-7dea-b66c-62f26400fb4f",
+        "universalPaperId": "2504.10045",
+        "topics": [
+          "Computer Science",
+          "cs.AI",
+          "cs.LG",
+          "human-ai-interaction",
+          "optimization-methods",
+          "reinforcement-learning"
+        ],
+        "title": "CHARM: Calibrating Reward Models With Chatbot Arena Scores",
+        "abstract": "Reward models (RMs) play a crucial role in Reinforcement Learning from Human Feedback by serving as proxies for human preferences in aligning large language models. However, they suffer from various biases which could lead to reward hacking. In this paper, we identify a model preference bias in RMs, where they systematically assign disproportionately high scores to responses from certain policy models, leading to unfair judgments. To mitigate this bias, we propose a calibration method named CHatbot Arena calibrated Reward Modeling (CHARM) that leverages Elo scores from the Chatbot Arena to construct debiased preference datasets and adjust reward model scoring. We conduct extensive experiments on reward model benchmarks and human preference alignment. Results demonstrate that our calibrated RMs achieve improved evaluation accuracy on RM-Bench and the Chat-Hard domain of RewardBench, exhibit a stronger correlation with human preferences by producing scores more closely aligned with Elo rankings and improve downstream post-training performance. These results demonstrate that CHARM provides a simple, effective, and broadly applicable approach to building more reliable and fair reward models.",
+        "publicationDate": "Tue Mar 17 2026 12:03:29 GMT+0000 (Coordinated Universal Time)",
+        "addedAt": "2026-04-08T07:36:29.441Z",
+        "imageUrl": "image/2504.10045v2.png",
+        "citation": null,
+        "type": "public",
+        "authors": [
+          {
+            "id": "01985c81-f312-7299-9425-dcbd5b78cead",
+            "full_name": "Xiao Zhu",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c82-2ed6-7995-8bc9-644349427a67",
+            "full_name": "Chenmien Tan",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c82-3618-74dd-be13-50a1f54cc1b6",
+            "full_name": "Pinzhen Chen",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c81-d97f-7196-8d2f-fd98d3d99f19",
+            "full_name": "Rico Sennrich",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c82-4811-720d-945e-f23b9069454f",
+            "full_name": "Huiming Wang",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c83-975e-70f0-8d84-f02f9cd75aee",
+            "full_name": "Yanlin Zhang",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c83-04d7-7d0a-952f-b6a2255d12f7",
+            "full_name": "Hanxu Hu",
+            "username": null,
+            "user_id": null
+          }
+        ],
+        "organizations": [],
+        "userAuthors": []
+      },
+      {
+        "paperGroupId": "0194cccd-2118-7fb6-930b-e4b6d9f0ca40",
+        "universalPaperId": "2502.01534",
+        "topics": [
+          "adversarial-robustness",
+          "Computer Science",
+          "cs.AI",
+          "cs.CL",
+          "cs.LG",
+          "explainable-ai",
+          "model-interpretation",
+          "synthetic-data"
+        ],
+        "title": "Preference Leakage: A Contamination Problem in LLM-as-a-judge",
+        "abstract": "Large Language Models (LLMs) as judges and LLM-based data synthesis have emerged as two fundamental LLM-driven data annotation methods in model development. While their combination significantly enhances the efficiency of model training and evaluation, little attention has been given to the potential contamination brought by this new model development paradigm. In this work, we expose preference leakage, a contamination problem in LLM-as-a-judge caused by the relatedness between the synthetic data generators and LLM-based evaluators. To study this issue, we first define three common relatednesses between the data generator LLM and the judge LLM: being the same model, having an inheritance relationship, and belonging to the same model family. Through extensive experiments, we empirically confirm the bias of judges towards their related student models caused by preference leakage across multiple LLM baselines and benchmarks. Further analysis suggests that preference leakage is a pervasive and real-world problem that is harder to detect compared to previously identified biases in LLM-as-a-judge scenarios. All of these findings imply that preference leakage is a widespread and challenging problem in the area of LLM-as-a-judge. We release all codes and data at: this https URL.",
+        "publicationDate": "Wed Mar 04 2026 17:50:58 GMT+0000 (Coordinated Universal Time)",
+        "addedAt": "2026-04-08T07:36:29.441Z",
+        "imageUrl": "image/2502.01534v3.png",
+        "citation": "@misc{han2025preferenceleakagecontamination,\n      title={Preference Leakage: A Contamination Problem in LLM-as-a-judge}, \n      author={Jiawei Han and Yue Huang and Xiangliang Zhang and Wei Wang and Huan Liu and Dawei Li and Renliang Sun and Ming Zhong and Bohan Jiang},\n      year={2025},\n      eprint={2502.01534},\n      archivePrefix={arXiv},\n      primaryClass={cs.LG},\n      url={https://arxiv.org/abs/2502.01534}, \n}",
+        "type": "public",
+        "authors": [
+          {
+            "id": "01985c82-2dc1-78c5-a526-15ea0a7784dd",
+            "full_name": "Dawei Li",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c82-2dc1-72bf-b1d4-446c62a53024",
+            "full_name": "Renliang Sun",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c81-df57-71a3-83fc-511f278d5331",
+            "full_name": "Yue Huang",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c82-3619-7839-8cb0-dff76938ca66",
+            "full_name": "Ming Zhong",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c82-6a8d-7f19-9462-6c8018b21a55",
+            "full_name": "Bohan Jiang",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c81-d97f-784f-b15d-c97464f5015a",
+            "full_name": "Jiawei Han",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c81-e286-719d-9a4d-5093c3b01cee",
+            "full_name": "Xiangliang Zhang",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c81-e286-7b76-ab15-b8a0516593d7",
+            "full_name": "Wei Wang",
+            "username": null,
+            "user_id": null
+          },
+          {
+            "id": "01985c81-e5a9-7a1c-930a-dc81b9fa7168",
+            "full_name": "Huan Liu",
+            "username": null,
+            "user_id": null
+          }
+        ],
+        "organizations": [
+          {
+            "id": "01985c36-cf10-730b-880d-f062f049c5ab",
+            "name": "UCLA",
+            "image": "images/organizations/ucla.png"
+          },
+          {
+            "id": "01985c36-cf10-7539-adcc-ae774bc21ca4",
+            "name": "University of Notre Dame",
+            "image": "images/organizations/university-of-notre-dame.svg+xml"
+          },
+          {
+            "id": "01985c36-cf11-74ec-87b8-76bd37442ed2",
+            "name": "Arizona State University",
+            "image": "images/organizations/arizona-state-university.png"
+          },
+          {
+            "id": "0199ee60-3875-7788-92be-10db67580a4e",
+            "name": "University of Illinois Urbana\nChampaign",
+            "image": null
+          }
+        ],
+        "userAuthors": [
+          {
+            "id": "01993ed4-906f-7b25-b515-48e632bb45ca",
+            "username": "dawei-li",
+            "realName": "Dawei Li",
+            "avatar": null,
+            "institution": "Arizona State University",
+            "googleScholarId": "JaX6HGAAAAAJ",
+            "reputation": 15,
+            "weeklyReputation": 0,
+            "verified": false,
+            "role": "user",
+            "orcidId": null,
+            "githubUsername": null,
+            "xUsername": null,
+            "linkedinUsername": null,
+            "blueskyUsername": null,
+            "publicEmail": null
+          },
+          {
+            "id": "0199407b-ea80-772a-911f-bf9f57d8c7b6",
+            "username": "bohan-jiang",
+            "realName": "Bohan Jiang",
+            "avatar": null,
+            "institution": "Arizona State University",
+            "googleScholarId": "Wu6doL0AAAAJ",
+            "reputation": 15,
+            "weeklyReputation": 0,
+            "verified": false,
+            "role": "user",
+            "orcidId": null,
+            "githubUsername": null,
+            "xUsername": null,
+            "linkedinUsername": null,
+            "blueskyUsername": null,
+            "publicEmail": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "0199857e-f04b-7f89-9533-98184cd8f6a0",
+    "name": "Want to read",
+    "type": "default-to-read",
+    "order": 4,
+    "parentId": null,
+    "sharingStatus": "not_shared",
+    "papers": []
+  }
+]
