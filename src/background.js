@@ -41,10 +41,36 @@ async function getClientAndPrefix(settings) {
   return { client, userPrefix: `/users/${userId}` };
 }
 
+async function findTabFor(host) {
+  const tabs = await chrome.tabs.query({ url: [`https://${host}/*`, `https://*.${host}/*`] });
+  return tabs.find(t => typeof t.id === 'number') || null;
+}
+
+function makeProxyFetch(host, label) {
+  return async (url, init = {}) => {
+    const tab = await findTabFor(host);
+    if (!tab) {
+      throw new Error(`Open https://www.${host} in a tab (signed in) and click sync again. ${label} cookies are scoped to that tab.`);
+    }
+    const resp = await chrome.tabs.sendMessage(tab.id, {
+      type: 'proxyFetch',
+      url,
+      init: { method: init.method || 'GET', headers: init.headers || {}, body: init.body }
+    });
+    if (!resp) throw new Error(`${label} proxy: no response from content script (tab may have navigated). Refresh the ${label} tab and retry.`);
+    if (!resp.ok) throw new Error(`${label} proxy error: ${resp.error || 'unknown'}`);
+    const { status, ok, body } = resp.data;
+    return {
+      ok, status,
+      headers: new Headers(),
+      text: async () => body
+    };
+  };
+}
+
 function makeAdapter(source) {
-  const fetchFn = globalThis.fetch.bind(globalThis);
-  if (source === 'alphaxiv') return createAlphaxivAdapter({ fetch: fetchFn });
-  if (source === 'scholar-inbox') return createScholarInboxAdapter({ fetch: fetchFn });
+  if (source === 'alphaxiv') return createAlphaxivAdapter({ fetch: makeProxyFetch('alphaxiv.org', 'AlphaXiv') });
+  if (source === 'scholar-inbox') return createScholarInboxAdapter({ fetch: makeProxyFetch('scholar-inbox.com', 'Scholar-Inbox') });
   throw new Error(`Unknown source: ${source}`);
 }
 

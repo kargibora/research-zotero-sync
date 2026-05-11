@@ -9,9 +9,27 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message?.type === 'extractPageData') {
     try { sendResponse({ ok: true, data: extractPageData() }); }
     catch (error) { sendResponse({ ok: false, error: error.message }); }
+    return true;
+  }
+  if (message?.type === 'proxyFetch') {
+    proxyFetch(message.url, message.init)
+      .then(data => sendResponse({ ok: true, data }))
+      .catch(error => sendResponse({ ok: false, error: error.message }));
+    return true;
   }
   return true;
 });
+
+async function proxyFetch(url, init = {}) {
+  const res = await fetch(url, {
+    method: init.method || 'GET',
+    credentials: 'include',
+    headers: init.headers || { accept: 'application/json' },
+    body: init.body
+  });
+  const body = await res.text();
+  return { status: res.status, ok: res.ok, body };
+}
 
 function extractPageData() {
   const source = detectSource();
