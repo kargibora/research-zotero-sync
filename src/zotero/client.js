@@ -1,6 +1,9 @@
 const ZOTERO_BASE = 'https://api.zotero.org';
 const API_VERSION = '3';
 
+// Zotero Web API caps list responses at 100 items per page; pagination via Link header is not implemented.
+export const ZOTERO_PAGE_LIMIT = 100;
+
 export function createZoteroClient({ apiKey, fetch }) {
   if (!apiKey) throw new Error('createZoteroClient: apiKey required');
   if (!fetch) throw new Error('createZoteroClient: fetch required');

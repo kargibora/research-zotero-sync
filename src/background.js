@@ -1,9 +1,8 @@
 import { createZoteroClient } from './zotero/client.js';
 import { applyToZotero } from './zotero/sync.js';
-import { createAlphaxivAdapter } from './adapters/alphaxiv.js';
-import { createScholarInboxAdapter } from './adapters/scholar-inbox.js';
 import { createSyncState } from './sync/state.js';
 import { runSync } from './sync/orchestrator.js';
+import { SOURCES, PAGE_FALLBACK } from './sources/registry.js';
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   handle(message)
@@ -79,15 +78,15 @@ function makeProxyFetch(host, label) {
 }
 
 function makeAdapter(source) {
-  if (source === 'alphaxiv') return createAlphaxivAdapter({ fetch: makeProxyFetch('alphaxiv.org', 'AlphaXiv') });
-  if (source === 'scholar-inbox') return createScholarInboxAdapter({ fetch: makeProxyFetch('scholar-inbox.com', 'Scholar-Inbox') });
-  throw new Error(`Unknown source: ${source}`);
+  const def = SOURCES[source];
+  if (!def) throw new Error(`Unknown source: ${source}`);
+  return def.createAdapter({ fetch: makeProxyFetch(def.cookieHost, def.label) });
 }
 
 async function syncSource(source) {
   const settings = await getSettings();
-  const enabledFlag = source === 'alphaxiv' ? 'enableAlphaxiv' : source === 'scholar-inbox' ? 'enableScholarInbox' : null;
-  if (enabledFlag && settings[enabledFlag] === false) {
+  const def = SOURCES[source];
+  if (def && settings[def.enableSettingKey] === false) {
     return { ok: true, source, papersWritten: 0, collectionsTouched: [], skipped: true };
   }
   const { client, userPrefix } = await getClientAndPrefix(settings);
@@ -118,15 +117,14 @@ async function syncCurrentPage(pageData) {
   const { client, userPrefix } = await getClientAndPrefix(settings);
   const state = createSyncState({ storage: chrome.storage.local });
 
+  const def = SOURCES[pageData.source];
   const adapterResult = {
     source: pageData.source || 'page',
     fetchedAt: new Date().toISOString(),
     user: { id: '' },
     collections: [{
       sourceId: 'manual',
-      name: pageData.source === 'alphaxiv' ? 'Papers'
-          : pageData.source === 'scholar-inbox' ? 'Papers'
-          : 'Manual',
+      name: def?.pageCollectionName || PAGE_FALLBACK.pageCollectionName,
       type: 'custom',
       papers: [{
         sourceId: pageData.identifiers?.arxiv || pageData.identifiers?.doi || pageData.url,
@@ -150,10 +148,7 @@ async function syncCurrentPage(pageData) {
     }))
   };
 
-  const sourceParentName = pageData.source === 'alphaxiv' ? 'AlphaXiv'
-    : pageData.source === 'scholar-inbox' ? 'Scholar-Inbox'
-    : 'Manual sync';
-
+  const sourceParentName = def?.parentName || PAGE_FALLBACK.parentName;
   return applyToZotero({ adapterResult, client, state, userPrefix, sourceParentName });
 }
 

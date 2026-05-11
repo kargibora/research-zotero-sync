@@ -1,4 +1,5 @@
 import { renderNoteHtml } from './note-render.js';
+import { ZOTERO_PAGE_LIMIT } from './client.js';
 
 export async function applyToZotero({ adapterResult, client, state, userPrefix, sourceParentName }) {
   const parentKey = await ensureCollection(client, userPrefix, sourceParentName, null);
@@ -30,7 +31,7 @@ export async function applyToZotero({ adapterResult, client, state, userPrefix, 
 }
 
 async function ensureCollection(client, prefix, name, parentCollection) {
-  const existing = await client.fetchJson(`${prefix}/collections?limit=100&format=json`);
+  const existing = await client.fetchJson(`${prefix}/collections?limit=${ZOTERO_PAGE_LIMIT}&format=json`);
   const found = (existing || []).find(c =>
     c?.data?.name === name &&
     ((parentCollection || false) === (c?.data?.parentCollection || false))
@@ -119,7 +120,7 @@ async function ensureItemInCollection(client, prefix, itemKey, collectionKey) {
 }
 
 async function reconcileSyncNote({ client, userPrefix, parentKey, paper, notes, marker }) {
-  const children = await client.fetchJson(`${userPrefix}/items/${parentKey}/children?format=json&limit=100`);
+  const children = await client.fetchJson(`${userPrefix}/items/${parentKey}/children?format=json&limit=${ZOTERO_PAGE_LIMIT}`);
   const existing = (children || []).find(c => c.data?.itemType === 'note' && c.data?.note?.includes(marker));
 
   if (notes.length === 0) {
