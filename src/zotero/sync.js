@@ -7,9 +7,9 @@ export async function applyToZotero({ adapterResult, client, state, userPrefix, 
   let papersWritten = 0;
 
   for (const col of adapterResult.collections) {
-    if (col.papers.length === 0) continue;
     const childKey = await ensureCollection(client, userPrefix, col.name, parentKey);
     collectionsTouched.push(col.name);
+    if (col.papers.length === 0) continue;
 
     for (const paper of col.papers) {
       try {
