@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <h1>Research → Zotero</h1>
+
+    <section>
+      <h2>Bulk sync</h2>
+      <button id="syncAlphaxiv">Sync AlphaXiv</button>
+      <p id="alphaxivStatus" class="status"></p>
+      <button id="syncScholarInbox">Sync Scholar-Inbox</button>
+      <p id="scholarInboxStatus" class="status"></p>
+      <button id="syncAll">Sync all</button>
+    </section>
+
+    <section>
+      <h2>Current page</h2>
+      <button id="syncCurrentPage">Sync current page</button>
+    </section>
+
+    <p id="result" class="result"></p>
+    <p><a href="#" id="openOptions">Options</a></p>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
