@@ -84,7 +84,9 @@ async function syncCurrentPage(pageData) {
     user: { id: '' },
     collections: [{
       sourceId: 'manual',
-      name: pageData.source === 'alphaxiv' ? 'AlphaXiv (per-page)' : 'Scholar-Inbox (per-page)',
+      name: pageData.source === 'alphaxiv' ? 'AlphaXiv (per-page)'
+          : pageData.source === 'scholar-inbox' ? 'Scholar-Inbox (per-page)'
+          : 'Manual (per-page)',
       type: 'custom',
       papers: [{
         sourceId: pageData.identifiers?.arxiv || pageData.identifiers?.doi || pageData.url,
