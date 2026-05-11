@@ -40,7 +40,7 @@ async function ensureCollection(client, prefix, name, parentCollection) {
   const result = await client.fetchJson(`${prefix}/collections`, {
     method: 'POST',
     headers: { 'Zotero-Write-Token': cryptoRandom() },
-    body: JSON.stringify([parentCollection ? { name, parentCollection } : { name }])
+    body: JSON.stringify([{ name, parentCollection: parentCollection || false }])
   });
   const key = result?.success?.['0'];
   if (!key) throw new Error(`Failed to create collection ${name}: ${JSON.stringify(result)}`);

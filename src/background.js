@@ -46,13 +46,23 @@ async function findTabFor(host) {
   return tabs.find(t => typeof t.id === 'number') || null;
 }
 
+async function sendToTabWithRetry(tabId, message) {
+  try {
+    return await chrome.tabs.sendMessage(tabId, message);
+  } catch (e) {
+    if (!/Receiving end does not exist|Could not establish connection/i.test(e.message)) throw e;
+    await chrome.scripting.executeScript({ target: { tabId }, files: ['src/content.js'] });
+    return chrome.tabs.sendMessage(tabId, message);
+  }
+}
+
 function makeProxyFetch(host, label) {
   return async (url, init = {}) => {
     const tab = await findTabFor(host);
     if (!tab) {
       throw new Error(`Open https://www.${host} in a tab (signed in) and click sync again. ${label} cookies are scoped to that tab.`);
     }
-    const resp = await chrome.tabs.sendMessage(tab.id, {
+    const resp = await sendToTabWithRetry(tab.id, {
       type: 'proxyFetch',
       url,
       init: { method: init.method || 'GET', headers: init.headers || {}, body: init.body }

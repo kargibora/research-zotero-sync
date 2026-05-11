@@ -49,7 +49,23 @@ $('#syncAll').addEventListener('click', async () => {
 $('#syncCurrentPage').addEventListener('click', async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   $('#result').textContent = 'Extracting page…';
-  const page = await chrome.tabs.sendMessage(tab.id, { type: 'extractPageData' });
+  let page;
+  try {
+    page = await chrome.tabs.sendMessage(tab.id, { type: 'extractPageData' });
+  } catch (e) {
+    if (/Receiving end does not exist|Could not establish connection/i.test(e.message)) {
+      try {
+        await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['src/content.js'] });
+        page = await chrome.tabs.sendMessage(tab.id, { type: 'extractPageData' });
+      } catch (e2) {
+        $('#result').textContent = `❌ extract: cannot inject into this tab (${e2.message}). Try refreshing the tab.`;
+        return;
+      }
+    } else {
+      $('#result').textContent = `❌ extract: ${e.message}`;
+      return;
+    }
+  }
   if (!page?.ok) { $('#result').textContent = `❌ extract: ${page?.error || 'no response'}`; return; }
   $('#result').textContent = 'Syncing page…';
   renderResult('Page', await send({ type: 'syncCurrentPage', payload: page.data }));
