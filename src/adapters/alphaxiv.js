@@ -34,7 +34,13 @@ export function createAlphaxivAdapter({ fetch }) {
       for (const p of f.papers || []) {
         if (seenPaperGroupIds.has(p.paperGroupId)) continue;
         seenPaperGroupIds.add(p.paperGroupId);
-        const comments = await getJson(`/papers/v3/legacy/${p.paperGroupId}/comments`);
+        let comments;
+        try {
+          comments = await getJson(`/papers/v3/legacy/${p.paperGroupId}/comments`);
+        } catch (e) {
+          console.warn(`AlphaXiv comments fetch failed for ${p.paperGroupId}: ${e.message}`);
+          continue;
+        }
         for (const c of comments || []) {
           if (c.userId !== me.id) continue;
           if (c.body) {
