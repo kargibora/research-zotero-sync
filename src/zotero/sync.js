@@ -157,6 +157,6 @@ function authorToCreator(name) {
 }
 
 function cryptoRandom() {
-  if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
-  return `wt-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID().replace(/-/g, '');
+  return `wt${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`.slice(0, 32);
 }
