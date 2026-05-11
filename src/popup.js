@@ -9,6 +9,7 @@ function renderResult(label, response) {
   if (!response) { el.textContent = `${label}: no response`; return; }
   if (!response.ok) { el.textContent = `${label}: ❌ ${response.error || 'unknown error'}`; return; }
   const r = response.result || {};
+  if (r.ok === false) { el.textContent = `${label}: ❌ ${r.error || 'unknown error'}`; return; }
   if (r.papersWritten !== undefined) {
     el.textContent = `${label}: ✅ ${r.papersWritten} papers in ${(r.collectionsTouched || []).length} collections`;
   } else {
