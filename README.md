@@ -8,10 +8,6 @@ Bulk-sync your reading lists from **AlphaXiv** and **Scholar-Inbox** into **Zote
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![Chrome](https://img.shields.io/badge/chrome-supported-success.svg)](https://www.google.com/chrome/)
 
-> Add a screenshot at `docs/screenshots/popup.png` and reference it here once you have one. The popup is a clean card-based UI showing each source's last-sync state and a one-click "Sync all sources" action.
-
----
-
 ## Features
 
 - **Bulk sync — AlphaXiv:** every folder (default + custom) becomes a Zotero subcollection under `AlphaXiv/`. Papers are added as journal-article items with title, authors, abstract, arXiv ID tag, and a linked PDF URL.
@@ -82,8 +78,6 @@ That's it. Your Zotero library will gain `AlphaXiv/` and `Scholar-Inbox/` parent
 - Each source has an **adapter** that returns a normalized `AdapterResult { collections, notes }`. The Zotero **sync** module consumes that and writes idempotently.
 - A `chrome.storage.local` index maps `source:sourceId → zoteroKey` to prevent duplicates across runs.
 
-See [`docs/superpowers/specs/2026-05-11-collection-sync-design.md`](./docs/superpowers/specs/2026-05-11-collection-sync-design.md) for the full architecture.
-
 ---
 
 ## Roadmap
@@ -131,7 +125,6 @@ src/
 ├── popup.{html,css,js}   # toolbar UI
 └── options.{html,js}     # settings page
 tests/              # vitest unit tests + fixtures (no browser)
-docs/superpowers/   # design spec + implementation plan
 ```
 
 All source-side modules are **dependency-injected** (they take `fetch` and `storage` as parameters), so unit tests run in plain Node without any Chrome shim library.
