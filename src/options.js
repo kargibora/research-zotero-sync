@@ -1,22 +1,20 @@
-const fields = ['apiKey', 'userId', 'enableAlphaxiv', 'enableScholarInbox', 'attachPdfLink'];
+const fields = ['apiKey', 'userId', 'enableAlphaxiv', 'enableScholarInbox'];
 const storeKeyMap = {
   apiKey: 'zoteroApiKey',
   userId: 'zoteroUserId',
   enableAlphaxiv: 'enableAlphaxiv',
-  enableScholarInbox: 'enableScholarInbox',
-  attachPdfLink: 'attachPdfLink'
+  enableScholarInbox: 'enableScholarInbox'
 };
 
 function load() {
   chrome.storage.sync.get({
     zoteroApiKey: '', zoteroUserId: '',
-    enableAlphaxiv: true, enableScholarInbox: true, attachPdfLink: true
+    enableAlphaxiv: true, enableScholarInbox: true
   }, settings => {
     document.getElementById('apiKey').value = settings.zoteroApiKey || '';
     document.getElementById('userId').value = settings.zoteroUserId || '';
     document.getElementById('enableAlphaxiv').checked = !!settings.enableAlphaxiv;
     document.getElementById('enableScholarInbox').checked = !!settings.enableScholarInbox;
-    document.getElementById('attachPdfLink').checked = !!settings.attachPdfLink;
   });
 }
 
